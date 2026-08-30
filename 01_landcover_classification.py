@@ -1,35 +1,17 @@
 """
-Palakkad (Kerala) Land-Cover Classification — Python / earthengine-api port
 ============================================================================
 Classes: 1 Dense Forest | 2 Agroforestry / Tree-outside-Forest |
          3 Cropland | 4 Built-up | 5 Water
 Sensor : Sentinel-2 SR Harmonized, two seasons (post-monsoon + summer)
 Classifier: Random Forest (smileRandomForest)
 
-Setup
------
-    pip install earthengine-api geemap
-    earthengine authenticate          # one-time, opens a browser
-    # then edit EE_PROJECT below to your GCP/EE project id
-
-AOI note: full Palakkad district is ~4,500 sq km, above the 500-1,500 sq km
-brief. This uses a ~1,270 sq km sub-region (Malampuzha reservoir, Palakkad
-city, the Palakkad Gap paddy belt, Walayar/Western Ghats foothill forest,
-and rural agroforestry) so all five classes appear in one frame.
-"""
 
 import ee
 
-EE_PROJECT = "your-gcp-project-id"  # <-- set this
+EE_PROJECT = "project_id"  
 ee.Initialize(project=EE_PROJECT)
 
-# ---------------------------------------------------------------------------
-# 0. AOI
-# ---------------------------------------------------------------------------
-AOI_RECT = ee.Geometry.Rectangle([76.55, 10.65, 76.90, 10.95], None, False)
 
-# OPTIONAL: clip to the true district boundary if you have the geojson.
-# import json
 # with open("palakkad_district.geojson") as f:
 #     district_geojson = json.load(f)
 # district = ee.FeatureCollection(district_geojson)
@@ -215,7 +197,7 @@ CLASS_NAMES = ["Dense Forest", "Agroforestry/TOF", "Cropland", "Built-up", "Wate
 CLASS_PALETTE = ["0b6623", "76b041", "e3c700", "d7191c", "2c7fb8"]
 
 # ---------------------------------------------------------------------------
-# 7. ACCURACY ASSESSMENT (held-out validation set)
+# 7. ACCURACY ASSESSMENT 
 # ---------------------------------------------------------------------------
 validated = valid_set.classify(rf_classifier)
 confusion_matrix = validated.errorMatrix("class", "classification")
