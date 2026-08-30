@@ -1,28 +1,12 @@
 """
 Palakkad Land-Cover App — Streamlit / geemap port
-==================================================
-Python equivalent of the GEE-native App (02_landcover_app.js). Native GEE
-Apps only run compiled JavaScript, so this uses geemap (folium-based) inside
-Streamlit to reproduce the same map + legend + class-area + accuracy/kappa
-panel, driven by the Earth Engine Python API.
 
-Setup
------
-    pip install earthengine-api geemap streamlit
-    earthengine authenticate          # one-time
-    streamlit run 02_landcover_app.py
-
-If you exported the classified image to an EE asset (see the commented-out
-block at the end of 01_landcover_classification.py), swap the "CLASSIFY"
-section below for `ee.Image('projects/<proj>/assets/palakkad_landcover_rf')`
-so the app loads instantly instead of recomputing every run.
-"""
 
 import ee
 import streamlit as st
 import geemap.foliumap as geemap
 
-EE_PROJECT = "your-gcp-project-id"  # <-- set this
+EE_PROJECT = "your-gcp-project-id"  #
 
 st.set_page_config(layout="wide", page_title="Palakkad Land-Cover Explorer")
 
